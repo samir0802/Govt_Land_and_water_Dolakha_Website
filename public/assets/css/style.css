@@ -1,0 +1,6 @@
+body { font-family: 'Noto Sans Devanagari', 'Mangal', sans-serif; color: #1f2937; }
+.gov-header { background: #f8fafc; }
+.emblem { width: 64px; height: 64px; object-fit: contain; }
+.section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #0f172a; }
+.hero-image { max-height: 450px; object-fit: cover; }
+.gallery-thumb { height: 180px; width: 100%; object-fit: cover; }
