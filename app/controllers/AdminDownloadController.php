@@ -31,9 +31,7 @@ class AdminDownloadController extends BaseController
 
         $upload = $_FILES['document'];
         $mime = mime_content_type($upload['tmp_name']);
-        $extension = strtolower(pathinfo($upload['name'], PATHINFO_EXTENSION));
-        $allowedMimes = ['application/pdf', 'application/x-pdf', 'application/octet-stream'];
-        if ($extension !== 'pdf' || !in_array($mime, $allowedMimes, true)) {
+        if ($mime !== 'application/pdf') {
             $_SESSION['admin_error'] = 'Only PDF documents are allowed in downloads.';
             redirect($this->config['app']['base_url'] . 'admin/index.php?page=downloads');
         }
