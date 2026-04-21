@@ -29,16 +29,17 @@ class AdminAuthController extends BaseController
         if ($user && password_verify($password, $user['password_hash'])) {
             $_SESSION['user_id'] = (int) $user['id'];
             $_SESSION['username'] = $user['username'];
-            redirect('/admin/index.php?page=dashboard');
+            redirect($this->config['app']['base_url'] . 'admin/index.php?page=dashboard');
         }
 
         $_SESSION['auth_error'] = 'Invalid credentials';
-        redirect('/admin/index.php?page=login');
+        //redirect('/admin/index.php?page=login');
+        redirect($this->config['app']['base_url'] . 'admin/index.php?page=login');
     }
 
     public function logout(): void
     {
         session_destroy();
-        redirect('/admin/index.php?page=login');
+        redirect($this->config['app']['base_url'] . 'admin/index.php?page=login');
     }
 }

@@ -6,6 +6,8 @@ require_once __DIR__ . '/../app/bootstrap.php';
 require_once __DIR__ . '/../app/controllers/AdminAuthController.php';
 require_once __DIR__ . '/../app/controllers/AdminNoticeController.php';
 
+//echo $config['app']['base_url'];
+//exit;
 $page = $_GET['page'] ?? 'login';
 $action = $_GET['action'] ?? null;
 $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
@@ -14,7 +16,8 @@ $authController = new AdminAuthController($config, $db->pdo());
 $noticeController = new AdminNoticeController($config, $db->pdo());
 
 if ($page !== 'login' && !isLoggedIn()) {
-    redirect('/admin/index.php?page=login');
+    //redirect('/admin/index.php?page=login');
+    redirect($this->config['app']['base_url'] . 'admin/index.php?page=login');
 }
 
 if ($page === 'login') {
@@ -67,4 +70,5 @@ if (in_array($page, $placeholderViews, true)) {
     exit;
 }
 
-redirect('/admin/index.php?page=dashboard');
+//redirect('/admin/index.php?page=dashboard');
+redirect($this->config['app']['base_url'] . 'admin/index.php?page=dashboard');

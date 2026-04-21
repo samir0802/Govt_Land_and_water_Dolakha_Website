@@ -90,5 +90,5 @@ CREATE TABLE publications (
 );
 
 INSERT INTO users (username, password_hash, full_name, role)
-VALUES ('admin', '$2y$10$S8j7R/KOSM8Pzwrxkib95ud9e7LhPdpj7rshhqI9fkpQ6A1O4D0M2', 'System Administrator', 'admin');
+VALUES ('admin', '$2y$12$CjrVCqJpTE6p1Ek3iORinewsJzXS7WVZKm5ERAEcRlOR.MAqy60F2', 'System Administrator', 'admin');
 -- Default password for seed user: Admin@123
