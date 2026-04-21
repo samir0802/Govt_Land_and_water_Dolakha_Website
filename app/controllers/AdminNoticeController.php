@@ -64,6 +64,6 @@ class AdminNoticeController extends BaseController
     public function delete(int $id): void
     {
         $this->noticeModel->delete($id);
-        redirect($config['app']['base_url'] . 'admin/index.php?page=notices');
+        redirect($this->config['app']['base_url'] . 'admin/index.php?page=notices');
     }
 }
