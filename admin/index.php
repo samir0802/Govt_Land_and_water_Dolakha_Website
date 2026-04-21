@@ -38,6 +38,27 @@ if ($page === 'logout') {
 }
 
 if ($page === 'dashboard') {
+    $stats = [
+        'notices' => 0,
+        'downloads' => 0,
+        'employees' => 0,
+        'gallery_albums' => 0,
+    ];
+
+    foreach (['notices', 'downloads', 'employees'] as $table) {
+        $stmt = $db->pdo()->query('SELECT COUNT(*) FROM ' . $table);
+        $stats[$table] = (int) $stmt->fetchColumn();
+    }
+
+    $galleryTableStmt = $db->pdo()->query(
+        "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'gallery_albums'"
+    );
+    if ((int) $galleryTableStmt->fetchColumn() > 0) {
+        $stats['gallery_albums'] = (int) $db->pdo()->query('SELECT COUNT(*) FROM gallery_albums')->fetchColumn();
+    } else {
+        $stats['gallery_albums'] = (int) $db->pdo()->query('SELECT COUNT(*) FROM gallery')->fetchColumn();
+    }
+
     require __DIR__ . '/../app/views/admin/dashboard/index.php';
     exit;
 }
