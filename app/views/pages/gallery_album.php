@@ -11,9 +11,9 @@
                 <div class="card h-100">
                     <div class="card-body">
                         <?php if ($item['media_type'] === 'video'): ?>
-                            <video controls class="w-100"><source src="<?= e(mediaUrl($config, $item['media_path'])); ?>"></video>
+                            <video controls class="w-100"><source src="<?= e($item['media_path']); ?>"></video>
                         <?php else: ?>
-                            <img src="<?= e(mediaUrl($config, $item['media_path'])); ?>" class="img-fluid rounded" alt="<?= e($album['title_np']); ?>">
+                            <img src="<?= e($item['media_path']); ?>" class="img-fluid rounded" alt="<?= e($album['title_np']); ?>">
                         <?php endif; ?>
                     </div>
                 </div>

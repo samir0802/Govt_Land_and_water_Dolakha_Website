@@ -69,7 +69,7 @@
             <?php foreach ($gallery as $album): ?>
                 <div class="col-6 col-md-4">
                     <a class="card h-100 text-decoration-none" href="<?= $config['app']['base_url']; ?>?page=gallery&album=<?= (int) $album['id']; ?>">
-                        <?php if (!empty($album['cover_image'])): ?><img src="<?= e(mediaUrl($config, $album['cover_image'])); ?>" alt="<?= e($album['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
+                        <?php if (!empty($album['cover_image'])): ?><img src="<?= e($album['cover_image']); ?>" alt="<?= e($album['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
                         <div class="mt-2"><?= e($album['title_np']); ?></div>
                     </a>
                 </div>

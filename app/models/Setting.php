@@ -28,11 +28,9 @@ class Setting extends BaseModel
 
     private function tableExists(string $table): bool
     {
-        $stmt = $this->db->prepare(
-            'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = :table_name'
-        );
+        $stmt = $this->db->prepare('SHOW TABLES LIKE :table_name');
         $stmt->execute(['table_name' => $table]);
 
-        return (int) $stmt->fetchColumn() > 0;
+        return (bool) $stmt->fetchColumn();
     }
 }
