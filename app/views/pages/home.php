@@ -58,7 +58,7 @@
         <h2 class="section-title">डाउनलोड</h2>
         <div class="row g-3">
             <?php foreach ($downloads as $download): ?>
-                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= e($download['file_path']); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
+                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= e(mediaUrl($config, $download['file_path'])); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
             <?php endforeach; ?>
         </div>
     </section>
@@ -80,7 +80,10 @@
     <section class="bg-light py-5" id="contact">
         <div class="container">
             <h2 class="section-title">सम्पर्क</h2>
-            <p>ठेगाना: चरिकोट, दोलखा | फोन: ०४९-४२०००० | इमेल: info@dolakhaoffice.gov.np</p>
+            <?php $officeAddress = $siteSettings['office_address'] ?? 'चरिकोट, दोलखा'; ?>
+            <?php $officePhone = $siteSettings['office_phone'] ?? '०४९-४२००००'; ?>
+            <?php $officeEmail = $siteSettings['office_email'] ?? 'info@dolakhaoffice.gov.np'; ?>
+            <p>ठेगाना: <?= e($officeAddress); ?> | फोन: <?= e($officePhone); ?> | इमेल: <?= e($officeEmail); ?></p>
         </div>
     </section>
 </main>
