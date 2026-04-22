@@ -58,16 +58,21 @@
         <h2 class="section-title">डाउनलोड</h2>
         <div class="row g-3">
             <?php foreach ($downloads as $download): ?>
-                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= e($download['file_path']); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
+                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= e(mediaUrl($config, $download['file_path'])); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
             <?php endforeach; ?>
         </div>
     </section>
 
     <section class="container py-5" id="gallery">
-        <h2 class="section-title">ग्यालरी</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="section-title mb-0">ग्यालरी फोल्डरहरू</h2><a href="<?= $config['app']['base_url']; ?>?page=gallery">सबै फोल्डर हेर्नुहोस्</a></div>
         <div class="row g-3">
-            <?php foreach ($gallery as $image): ?>
-                <div class="col-6 col-md-4"><img src="<?= e($image['image_path']); ?>" alt="<?= e($image['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"></div>
+            <?php foreach ($gallery as $album): ?>
+                <div class="col-6 col-md-4">
+                    <a class="card h-100 text-decoration-none" href="<?= $config['app']['base_url']; ?>?page=gallery&album=<?= (int) $album['id']; ?>">
+                        <?php if (!empty($album['cover_image'])): ?><img src="<?= e(mediaUrl($config, $album['cover_image'])); ?>" alt="<?= e($album['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
+                        <div class="mt-2"><?= e($album['title_np']); ?></div>
+                    </a>
+                </div>
             <?php endforeach; ?>
         </div>
     </section>
@@ -75,7 +80,10 @@
     <section class="bg-light py-5" id="contact">
         <div class="container">
             <h2 class="section-title">सम्पर्क</h2>
-            <p>ठेगाना: चरिकोट, दोलखा | फोन: ०४९-४२०००० | इमेल: info@dolakhaoffice.gov.np</p>
+            <?php $officeAddress = $siteSettings['office_address'] ?? 'चरिकोट, दोलखा'; ?>
+            <?php $officePhone = $siteSettings['office_phone'] ?? '०४९-४२००००'; ?>
+            <?php $officeEmail = $siteSettings['office_email'] ?? 'info@dolakhaoffice.gov.np'; ?>
+            <p>ठेगाना: <?= e($officeAddress); ?> | फोन: <?= e($officePhone); ?> | इमेल: <?= e($officeEmail); ?></p>
         </div>
     </section>
 </main>

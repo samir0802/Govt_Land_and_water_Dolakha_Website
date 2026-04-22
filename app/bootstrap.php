@@ -34,3 +34,16 @@ function redirect(string $url): void
     header('Location: ' . $url);
     exit;
 }
+
+function mediaUrl(array $config, ?string $path): string
+{
+    if ($path === null || trim($path) === '') {
+        return '';
+    }
+
+    if (preg_match('#^https?://#i', $path)) {
+        return $path;
+    }
+
+    return rtrim($config['app']['base_url'], '/') . '/' . ltrim($path, '/');
+}
