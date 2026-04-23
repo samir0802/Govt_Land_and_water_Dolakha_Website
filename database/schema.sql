@@ -92,3 +92,29 @@ CREATE TABLE publications (
 INSERT INTO users (username, password_hash, full_name, role)
 VALUES ('admin', '$2y$12$CjrVCqJpTE6p1Ek3iORinewsJzXS7WVZKm5ERAEcRlOR.MAqy60F2', 'System Administrator', 'admin');
 -- Default password for seed user: Admin@123
+
+CREATE TABLE IF NOT EXISTS gallery_albums (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title_np VARCHAR(255) NOT NULL,
+    title_en VARCHAR(255) DEFAULT NULL,
+    event_date DATE DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS gallery_media (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    album_id INT UNSIGNED NOT NULL,
+    media_type ENUM('image', 'video') NOT NULL,
+    media_path VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_gallery_media_album FOREIGN KEY (album_id) REFERENCES gallery_albums(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS site_settings (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    setting_key VARCHAR(190) NOT NULL UNIQUE,
+    setting_value TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
