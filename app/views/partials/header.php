@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?= asset('css/style.css'); ?>">
 </head>
 <body>
-<header class="gov-header py-3 border-bottom">
+<header class="gov-header py-3 border-bottom" id="home">
     <div class="container d-flex align-items-center gap-3">
         <img src="<?= asset('images/nepal-emblem.svg'); ?>" alt="नेपाल सरकारको लोगो" class="emblem">
         <div>
