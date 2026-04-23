@@ -29,7 +29,7 @@
                 <tbody>
                 <?php foreach ($employees as $employee): ?>
                     <tr>
-                        <td><?php if (!empty($employee['photo_path'])): ?><img src="<?= e(mediaUrl($config, $employee['photo_path'])); ?>" alt="<?= e($employee['name_np']); ?>" style="width:56px;height:56px;object-fit:cover;border-radius:8px;"><?php endif; ?></td>
+                        <td><?php if (!empty($employee['photo_path'])): ?><img src="<?= e($employee['photo_path']); ?>" alt="<?= e($employee['name_np']); ?>" style="width:56px;height:56px;object-fit:cover;border-radius:8px;"><?php endif; ?></td>
                         <td><?= e($employee['name_np']); ?></td>
                         <td><?= e($employee['designation_np']); ?></td>
                         <td><?= (int) $employee['sort_order']; ?></td>

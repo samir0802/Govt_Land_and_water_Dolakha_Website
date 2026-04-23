@@ -35,7 +35,7 @@
                 <?php foreach ($downloads as $item): ?>
                     <tr>
                         <td><?= e($item['title_np']); ?></td>
-                        <td><a href="<?= e(mediaUrl($config, $item['file_path'])); ?>" target="_blank">Open PDF</a></td>
+                        <td><a href="<?= e($item['file_path']); ?>" target="_blank">Open PDF</a></td>
                         <td><?= e(date('Y-m-d', strtotime($item['published_at']))); ?></td>
                         <td class="text-end">
                             <form method="POST" action="<?= $config['app']['base_url'] ?>admin/index.php?page=downloads&action=delete&id=<?= (int) $item['id']; ?>" onsubmit="return confirm('Delete this file?');">
