@@ -28,8 +28,7 @@ class Setting extends BaseModel
 
     private function tableExists(string $table): bool
     {
-        $stmt = $this->db->prepare('SHOW TABLES LIKE :table_name');
-        $stmt->execute(['table_name' => $table]);
+        $stmt = $this->db->query("SHOW TABLES LIKE '" . $table . "'");
 
         return (bool) $stmt->fetchColumn();
     }

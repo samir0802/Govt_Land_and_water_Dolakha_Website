@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?= asset('css/style.css'); ?>">
 </head>
 <body>
-<header class="gov-header py-3 border-bottom" id="home">
+<header class="gov-header py-3 border-bottom">
     <div class="container d-flex align-items-center gap-3">
         <img src="<?= asset('images/nepal-emblem.svg'); ?>" alt="नेपाल सरकारको लोगो" class="emblem">
         <div>
@@ -20,18 +20,18 @@
 </header>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="<?= $config['app']['base_url']; ?>#home">कार्यालय</a>
+        <a class="navbar-brand" href="">कार्यालय</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#home">गृहपृष्ठ</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#introduction">परिचय</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#services">सेवा</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#notices">सूचना</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#publications">प्रकाशन</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#downloads">डाउनलोड</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#gallery">ग्यालरी</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= $config['app']['base_url']; ?>#contact">सम्पर्क</a></li>
+                <li class="nav-item"><a class="nav-link" href="">गृहपृष्ठ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#introduction">परिचय</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">सेवा</a></li>
+                <li class="nav-item"><a class="nav-link" href="#notices">सूचना</a></li>
+                <li class="nav-item"><a class="nav-link" href="#publications">प्रकाशन</a></li>
+                <li class="nav-item"><a class="nav-link" href="#downloads">डाउनलोड</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery">ग्यालरी</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">सम्पर्क</a></li>
             </ul>
         </div>
     </div>
