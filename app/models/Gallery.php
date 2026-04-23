@@ -8,9 +8,9 @@ class Gallery extends BaseModel
     {
         if ($this->hasAlbumsTables()) {
             $stmt = $this->db->prepare(
-                'SELECT ga.id, ga.title_np, ga.title_en, MIN(gm.media_path) AS cover_image
+                'SELECT ga.id, ga.title_np, ga.title_en, MIN(gm.image_path) AS cover_image
                  FROM gallery_albums ga
-                 LEFT JOIN gallery_media gm ON gm.album_id = ga.id AND gm.media_type = "image"
+                 LEFT JOIN gallery_items gm ON gm.album_id = ga.id AND gm.media_type = "image"
                  GROUP BY ga.id, ga.title_np, ga.title_en
                  ORDER BY ga.id DESC
                  LIMIT :limit'
@@ -34,7 +34,7 @@ class Gallery extends BaseModel
             return $this->db->query(
                 'SELECT ga.*, COUNT(gm.id) AS total_items
                  FROM gallery_albums ga
-                 LEFT JOIN gallery_media gm ON gm.album_id = ga.id
+                 LEFT JOIN gallery_items gm ON gm.album_id = ga.id
                  GROUP BY ga.id
                  ORDER BY ga.event_date DESC, ga.id DESC'
             )->fetchAll();
@@ -58,10 +58,10 @@ class Gallery extends BaseModel
         return (int) $this->db->lastInsertId();
     }
 
-    public function addMedia(array $payload): void
+    public function addItem(array $payload): void
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO gallery_media (album_id, media_type, media_path) VALUES (:album_id, :media_type, :media_path)'
+            'INSERT INTO gallery_items (album_id, media_type, image_path) VALUES (:album_id, :media_type, :image_path)'
         );
         $stmt->execute($payload);
     }
@@ -86,13 +86,13 @@ class Gallery extends BaseModel
     public function albumMedia(int $albumId): array
     {
         if ($this->hasAlbumsTables()) {
-            $stmt = $this->db->prepare('SELECT * FROM gallery_media WHERE album_id = :album_id ORDER BY id DESC');
+            $stmt = $this->db->prepare('SELECT * FROM gallery_items WHERE album_id = :album_id ORDER BY id DESC');
             $stmt->execute(['album_id' => $albumId]);
 
             return $stmt->fetchAll();
         }
 
-        $stmt = $this->db->prepare('SELECT id, id AS album_id, "image" AS media_type, image_path AS media_path FROM gallery WHERE id = :id');
+        $stmt = $this->db->prepare('SELECT id, id AS album_id, "image" AS media_type, image_path AS image_path FROM gallery WHERE id = :id');
         $stmt->execute(['id' => $albumId]);
 
         return $stmt->fetchAll();
@@ -110,7 +110,7 @@ class Gallery extends BaseModel
 
     private function hasAlbumsTables(): bool
     {
-        return $this->tableExists('gallery_albums') && $this->tableExists('gallery_media');
+        return $this->tableExists('gallery_albums') && $this->tableExists('gallery_items');
     }
 
     private function tableExists(string $table): bool
