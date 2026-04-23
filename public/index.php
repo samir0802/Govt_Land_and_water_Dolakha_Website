@@ -13,7 +13,6 @@ switch ($page) {
     case 'notices':
         (new NoticeController($config, $db->pdo()))->index();
         break;
-    case 'gallery_albums':
     case 'gallery':
         (new GalleryController($config, $db->pdo()))->index();
         break;

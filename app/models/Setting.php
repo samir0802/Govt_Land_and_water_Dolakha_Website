@@ -28,7 +28,6 @@ class Setting extends BaseModel
 
     private function tableExists(string $table): bool
     {
-        $table = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
         $stmt = $this->db->query("SHOW TABLES LIKE '" . $table . "'");
 
         return (bool) $stmt->fetchColumn();

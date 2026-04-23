@@ -20,18 +20,18 @@
 </header>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="<?= e(publicPageUrl()); ?>#home">कार्यालय</a>
+        <a class="navbar-brand" href="">कार्यालय</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#home">गृहपृष्ठ</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#introduction">परिचय</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#services">सेवा</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#notices">सूचना</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#publications">प्रकाशन</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#downloads">डाउनलोड</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#gallery">ग्यालरी</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= e(publicPageUrl()); ?>#contact">सम्पर्क</a></li>
+                <li class="nav-item"><a class="nav-link" href="">गृहपृष्ठ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#introduction">परिचय</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">सेवा</a></li>
+                <li class="nav-item"><a class="nav-link" href="#notices">सूचना</a></li>
+                <li class="nav-item"><a class="nav-link" href="#publications">प्रकाशन</a></li>
+                <li class="nav-item"><a class="nav-link" href="#downloads">डाउनलोड</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery">ग्यालरी</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">सम्पर्क</a></li>
             </ul>
         </div>
     </div>

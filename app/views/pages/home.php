@@ -64,12 +64,12 @@
     </section>
 
     <section class="container py-5" id="gallery">
-        <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="section-title mb-0">ग्यालरी फोल्डरहरू</h2><a href="<?= e(publicPageUrl('page=gallery')); ?>">सबै फोल्डर हेर्नुहोस्</a></div>
+        <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="section-title mb-0">ग्यालरी फोल्डरहरू</h2><a href="<?= $config['app']['base_url']; ?>?page=gallery">सबै फोल्डर हेर्नुहोस्</a></div>
         <div class="row g-3">
             <?php foreach ($gallery as $album): ?>
                 <div class="col-6 col-md-4">
-                    <a class="card h-100 text-decoration-none" href="<?= e(publicPageUrl('page=gallery&album=' . (int) $album['id'])); ?>">
-                        <?php if (!empty($album['cover_image'])): ?><img src="<?= e(mediaUrl($config, $album['cover_image'])); ?>" alt="<?= e($album['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
+                    <a class="card h-100 text-decoration-none" href="<?= $config['app']['base_url']; ?>?page=gallery&album=<?= (int) $album['id']; ?>">
+                        <?php if (!empty($album['cover_image'])): ?><img src="<?= e($album['cover_image']); ?>" alt="<?= e($album['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
                         <div class="mt-2"><?= e($album['title_np']); ?></div>
                     </a>
                 </div>
