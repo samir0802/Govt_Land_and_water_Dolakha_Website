@@ -20,63 +20,19 @@ class HomeController extends BaseController
 
     public function index(): void
     {
-        $data = $this->commonData();
-        $this->view('pages/home', $data);
-    }
-
-    public function introduction(): void
-    {
-        $this->view('pages/introduction', [
-            'config' => $this->config,
-        ]);
-    }
-
-    public function services(): void
-    {
-        $this->view('pages/services', [
-            'config' => $this->config,
-            'services' => (new Service($this->db))->all(),
-        ]);
-    }
-
-    public function publications(): void
-    {
-        $this->view('pages/publications', [
-            'config' => $this->config,
-            'publications' => (new Publication($this->db))->latest(50),
-        ]);
-    }
-
-    public function downloads(): void
-    {
-        $this->view('pages/downloads', [
-            'config' => $this->config,
-            'downloads' => (new Download($this->db))->all(),
-        ]);
-    }
-
-    public function contact(): void
-    {
-        $this->view('pages/contact', [
-            'config' => $this->config,
-        ]);
-    }
-
-    private function commonData(): array
-    {
         $noticeModel = new Notice($this->db);
         $serviceModel = new Service($this->db);
         $publicationModel = new Publication($this->db);
         $downloadModel = new Download($this->db);
         $galleryModel = new Gallery($this->db);
 
-        return [
+        $this->view('pages/home', [
             'config' => $this->config,
             'latestNotices' => $noticeModel->latest(6),
             'services' => $serviceModel->all(),
             'publications' => $publicationModel->latest(6),
             'downloads' => $downloadModel->latest(6),
             'gallery' => $galleryModel->latest(6),
-        ];
+        ]);
     }
 }
