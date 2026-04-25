@@ -25,13 +25,13 @@
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php'); ?>">गृहपृष्ठ</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=introduction'); ?>">परिचय</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=services'); ?>">सेवा</a></li>
+                <li class="nav-item"><a class="nav-link" href="#introduction">परिचय</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">सेवा</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=notices'); ?>">सूचना</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=publications'); ?>">प्रकाशन</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=downloads'); ?>">डाउनलोड</a></li>
+                <li class="nav-item"><a class="nav-link" href="#publications">प्रकाशन</a></li>
+                <li class="nav-item"><a class="nav-link" href="#downloads">डाउनलोड</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=gallery'); ?>">ग्यालरी</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=contact'); ?>">सम्पर्क</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">सम्पर्क</a></li>
             </ul>
         </div>
     </div>
