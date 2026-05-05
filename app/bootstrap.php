@@ -14,23 +14,81 @@ require_once __DIR__ . '/controllers/BaseController.php';
 
 $db = new Database($config['db']);
 
-function asset(string $path): string
-{
-    return '/assets/' . ltrim($path, '/');
+if (!function_exists('url')) {
+    function url(string $path = ''): string
+    {
+        global $config;
+        return rtrim($config['app']['base_url'], '/') . '/' . ltrim($path, '/');
+    }
 }
 
-function e(string $text): string
-{
-    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+if (!function_exists('asset')) {
+    function asset(string $path): string
+    {
+        return url('public/assets/' . ltrim($path, '/'));
+    }
 }
 
-function isLoggedIn(): bool
-{
-    return isset($_SESSION['user_id']);
+if (!function_exists('e')) {
+    function e(string $text): string
+    {
+        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    }
 }
 
-function redirect(string $url): void
-{
-    header('Location: ' . $url);
-    exit;
+if (!function_exists('isLoggedIn')) {
+    function isLoggedIn(): bool
+    {
+        return isset($_SESSION['user_id']);
+    }
+}
+
+if (!function_exists('redirect')) {
+    function redirect(string $path): void
+    {
+        $target = preg_match('#^https?://#i', $path) ? $path : url($path);
+        header('Location: ' . $target);
+        exit;
+    }
+}
+
+if (!function_exists('loadSettings')) {
+    function loadSettings(PDO $pdo): array
+    {
+        $stmt = $pdo->query("SHOW TABLES LIKE 'site_settings'");
+        if (!(bool) $stmt->fetchColumn()) {
+            return [];
+        }
+
+        return $pdo->query('SELECT setting_key, setting_value FROM site_settings')->fetchAll(PDO::FETCH_KEY_PAIR) ?: [];
+    }
+}
+
+if (!function_exists('lang')) {
+    function lang(): string
+    {
+        $value = $_SESSION['lang'] ?? 'np';
+        return in_array($value, ['np', 'en'], true) ? $value : 'np';
+    }
+}
+
+if (!function_exists('trField')) {
+    function trField(array $row, string $baseKey): string
+    {
+        $current = lang();
+        $primary = $row[$baseKey . '_' . $current] ?? '';
+        $fallback = $row[$baseKey . '_np'] ?? '';
+
+        return trim((string) ($primary !== '' ? $primary : $fallback));
+    }
+}
+
+$siteSettings = loadSettings($db->pdo());
+
+if (!function_exists('setting')) {
+    function setting(string $key, ?string $default = null): ?string
+    {
+        global $siteSettings;
+        return $siteSettings[$key] ?? $default;
+    }
 }

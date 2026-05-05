@@ -10,7 +10,8 @@
             </div>
             <div class="col-md-6 text-md-end">
                 <p class="mb-1">© <?= date('Y'); ?> खानेपानी, सिंचाइ तथा जलस्रोत कार्यालय, दोलखा</p>
-                <p class="mb-0">Developed for district level e-governance</p>
+                <p class="mb-1">Developed for district level e-governance</p>
+                <p class="mb-0">CMS Access: <a class="text-warning fw-semibold" href="<?= url('admin/index.php?page=login'); ?>">Admin Login</a></p>
             </div>
         </div>
     </div>
