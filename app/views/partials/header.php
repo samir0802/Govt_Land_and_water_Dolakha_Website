@@ -16,6 +16,7 @@
             <p class="mb-0"><?= e(setting('site_name_np', $config['app']['name_np']) ?? $config['app']['name_np']); ?></p>
             <p class="mb-0"><?= e(setting('office_address', 'सिंहदरबार, काठमाडौं') ?? 'सिंहदरबार, काठमाडौं'); ?></p>
         </div>
+        <a class="btn btn-sm btn-outline-primary" href="<?= url('admin/index.php?page=login'); ?>">Admin Login</a>
     </div>
 </header>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">

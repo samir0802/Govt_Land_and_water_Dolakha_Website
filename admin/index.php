@@ -10,6 +10,7 @@ require_once __DIR__ . '/../app/controllers/AdminServiceController.php';
 require_once __DIR__ . '/../app/controllers/AdminEmployeeController.php';
 require_once __DIR__ . '/../app/controllers/AdminGalleryController.php';
 require_once __DIR__ . '/../app/controllers/AdminSettingController.php';
+require_once __DIR__ . '/../app/controllers/AdminPublicationController.php';
 
 $page = $_GET['page'] ?? 'login';
 $action = $_GET['action'] ?? null;
@@ -22,6 +23,7 @@ $serviceController = new AdminServiceController($config, $db->pdo());
 $employeeController = new AdminEmployeeController($config, $db->pdo());
 $galleryController = new AdminGalleryController($config, $db->pdo());
 $settingController = new AdminSettingController($config, $db->pdo());
+$publicationController = new AdminPublicationController($config, $db->pdo());
 
 if ($page !== 'login' && !isLoggedIn()) {
     redirect('admin/index.php?page=login');
@@ -100,6 +102,17 @@ if ($page === 'downloads') {
         $downloadController->delete($id);
     }
     $downloadController->index();
+    exit;
+}
+
+if ($page === 'publications') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'create') {
+        $publicationController->create();
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'delete' && $id) {
+        $publicationController->delete($id);
+    }
+    $publicationController->index();
     exit;
 }
 
