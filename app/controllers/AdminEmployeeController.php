@@ -31,7 +31,7 @@ class AdminEmployeeController extends BaseController
             $mime = mime_content_type($upload['tmp_name']);
             if (!in_array($mime, ['image/jpeg', 'image/png'], true)) {
                 $_SESSION['admin_error'] = 'Employee photo must be JPG or PNG.';
-                redirect($this->config['app']['base_url'] . 'admin/index.php?page=employees');
+                redirect('admin/index.php?page=employees');
             }
 
             $ext = $mime === 'image/png' ? 'png' : 'jpg';
@@ -42,7 +42,7 @@ class AdminEmployeeController extends BaseController
 
             $filename = date('YmdHis') . '-' . bin2hex(random_bytes(4)) . '.' . $ext;
             move_uploaded_file($upload['tmp_name'], $dir . '/' . $filename);
-            $photoPath = '/assets/images/uploads/employees/' . $filename;
+            $photoPath = 'uploads/employees/' . $filename;
         }
 
         $this->employeeModel->create([
@@ -55,14 +55,14 @@ class AdminEmployeeController extends BaseController
         ]);
 
         $_SESSION['admin_success'] = 'Employee added successfully.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=employees');
+        redirect('admin/index.php?page=employees');
     }
 
     public function delete(int $id): void
     {
         $employee = $this->employeeModel->find($id);
         if ($employee && !empty($employee['photo_path'])) {
-            $file = __DIR__ . '/../../public' . $employee['photo_path'];
+            $file = __DIR__ . '/../../public/assets/images/' . ltrim($employee['photo_path'], '/');
             if (is_file($file)) {
                 unlink($file);
             }
@@ -70,6 +70,6 @@ class AdminEmployeeController extends BaseController
 
         $this->employeeModel->delete($id);
         $_SESSION['admin_success'] = 'Employee removed successfully.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=employees');
+        redirect('admin/index.php?page=employees');
     }
 }

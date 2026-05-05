@@ -21,7 +21,7 @@ class GalleryController extends BaseController
         if ($albumId) {
             $album = $this->galleryModel->getAlbum($albumId);
             if (!$album) {
-                redirect($this->config['app']['base_url']);
+                redirect('');
             }
 
             $this->view('pages/gallery_album', [

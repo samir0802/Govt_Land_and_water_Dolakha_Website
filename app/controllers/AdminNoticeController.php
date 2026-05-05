@@ -37,7 +37,7 @@ class AdminNoticeController extends BaseController
             'published_at' => $_POST['published_at'] ?: date('Y-m-d H:i:s'),
         ];
         $this->noticeModel->create($payload);
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=notices');
+        redirect('admin/index.php?page=notices');
     }
 
     public function editForm(int $id): void
@@ -58,12 +58,12 @@ class AdminNoticeController extends BaseController
             'published_at' => $_POST['published_at'] ?: date('Y-m-d H:i:s'),
         ];
         $this->noticeModel->update($id, $payload);
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=notices');
+        redirect('admin/index.php?page=notices');
     }
 
     public function delete(int $id): void
     {
         $this->noticeModel->delete($id);
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=notices');
+        redirect('admin/index.php?page=notices');
     }
 }
