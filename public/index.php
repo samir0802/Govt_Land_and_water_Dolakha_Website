@@ -7,6 +7,12 @@ require_once __DIR__ . '/../app/controllers/HomeController.php';
 require_once __DIR__ . '/../app/controllers/NoticeController.php';
 require_once __DIR__ . '/../app/controllers/GalleryController.php';
 
+if (isset($_GET['set_lang']) && in_array($_GET['set_lang'], ['np', 'en'], true)) {
+    $_SESSION['lang'] = $_GET['set_lang'];
+    $returnTo = $_GET['return_to'] ?? 'home';
+    redirect('public/index.php?page=' . urlencode((string) $returnTo));
+}
+
 $page = $_GET['page'] ?? 'home';
 $homeController = new HomeController($config, $db->pdo());
 

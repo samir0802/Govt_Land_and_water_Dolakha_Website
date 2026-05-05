@@ -11,15 +11,15 @@
     </section>
 
     <section class="container py-5" id="notices">
-        <h2 class="section-title">ताजा सूचना</h2>
+        <h2 class="section-title"><?= lang() === 'en' ? 'Latest Notices' : 'ताजा सूचना'; ?></h2>
         <div class="row g-3">
             <?php foreach ($latestNotices as $notice): ?>
                 <div class="col-md-6">
                     <article class="card h-100 shadow-sm">
                         <div class="card-body">
-                            <h3 class="h5"><?= e($notice['title_np']); ?></h3>
+                            <h3 class="h5"><?= e(trField($notice, 'title')); ?></h3>
                             <p class="small text-muted mb-2"><?= e(date('Y-m-d', strtotime($notice['published_at']))); ?></p>
-                            <p class="mb-0"><?= e(mb_strimwidth($notice['content_np'], 0, 180, '...')); ?></p>
+                            <p class="mb-0"><?= e(mb_strimwidth(trField($notice, 'content'), 0, 180, '...')); ?></p>
                         </div>
                     </article>
                 </div>
@@ -29,33 +29,33 @@
 
     <section class="bg-light py-5" id="introduction">
         <div class="container">
-            <h2 class="section-title">कार्यालय परिचय</h2>
+            <h2 class="section-title"><?= lang() === 'en' ? 'Office Introduction' : 'कार्यालय परिचय'; ?></h2>
             <p>खानेपानी, सिंचाइ तथा जलस्रोत कार्यालय, दोलखाले जिल्लाभर सुरक्षित खानेपानी, साना सिंचाइ आयोजना, र जलस्रोत व्यवस्थापन सम्बन्धी सेवा प्रदान गर्दछ।</p>
         </div>
     </section>
 
     <section class="container py-5" id="services">
-        <h2 class="section-title">हाम्रा सेवाहरू</h2>
+        <h2 class="section-title"><?= lang() === 'en' ? 'Our Services' : 'हाम्रा सेवाहरू'; ?></h2>
         <div class="row g-3">
             <?php foreach ($services as $service): ?>
-                <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h6"><?= e($service['title_np']); ?></h3><p class="mb-0"><?= e($service['description_np']); ?></p></div></div></div>
+                <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h6"><?= e(trField($service, 'title')); ?></h3><p class="mb-0"><?= e(trField($service, 'description')); ?></p></div></div></div>
             <?php endforeach; ?>
         </div>
     </section>
 
     <section class="bg-light py-5" id="publications">
         <div class="container">
-            <h2 class="section-title">प्रकाशन</h2>
+            <h2 class="section-title"><?= lang() === 'en' ? 'Publications' : 'प्रकाशन'; ?></h2>
             <ul class="list-group">
                 <?php foreach ($publications as $item): ?>
-                    <li class="list-group-item d-flex justify-content-between"><span><?= e($item['title_np']); ?></span><small><?= e(date('Y-m-d', strtotime($item['published_at']))); ?></small></li>
+                    <li class="list-group-item d-flex justify-content-between"><span><?= e(trField($item, 'title')); ?></span><small><?= e(date('Y-m-d', strtotime($item['published_at']))); ?></small></li>
                 <?php endforeach; ?>
             </ul>
         </div>
     </section>
 
     <section class="container py-5" id="downloads">
-        <h2 class="section-title">डाउनलोड</h2>
+        <h2 class="section-title"><?= lang() === 'en' ? 'Downloads' : 'डाउनलोड'; ?></h2>
         <div class="row g-3">
             <?php foreach ($downloads as $download): ?>
                 <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= asset('images/' . ltrim($download['file_path'], '/')); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
