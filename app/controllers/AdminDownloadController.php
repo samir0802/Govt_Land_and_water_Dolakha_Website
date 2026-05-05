@@ -26,14 +26,14 @@ class AdminDownloadController extends BaseController
     {
         if (!isset($_FILES['document']) || $_FILES['document']['error'] !== UPLOAD_ERR_OK) {
             $_SESSION['admin_error'] = 'Please upload a valid PDF file.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=downloads');
+            redirect('admin/index.php?page=downloads');
         }
 
         $upload = $_FILES['document'];
         $mime = mime_content_type($upload['tmp_name']);
         if ($mime !== 'application/pdf') {
             $_SESSION['admin_error'] = 'Only PDF documents are allowed in downloads.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=downloads');
+            redirect('admin/index.php?page=downloads');
         }
 
         $dir = __DIR__ . '/../../public/assets/images/uploads/downloads';
@@ -51,26 +51,26 @@ class AdminDownloadController extends BaseController
         $this->downloadModel->create([
             'title_np' => trim($_POST['title_np'] ?? ''),
             'title_en' => trim($_POST['title_en'] ?? ''),
-            'file_path' => '/assets/images/uploads/downloads/' . $filename,
+            'file_path' => 'uploads/downloads/' . $filename,
             'file_type' => 'application/pdf',
             'published_at' => $publishedAt,
         ]);
 
         $_SESSION['admin_success'] = 'Download file uploaded successfully.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=downloads');
+        redirect('admin/index.php?page=downloads');
     }
 
     public function delete(int $id): void
     {
         $download = $this->downloadModel->find($id);
         if ($download && isset($download['file_path'])) {
-            $file = __DIR__ . '/../../public' . $download['file_path'];
+            $file = __DIR__ . '/../../public/assets/images/' . ltrim($download['file_path'], '/');
             if (is_file($file)) {
                 unlink($file);
             }
         }
         $this->downloadModel->delete($id);
         $_SESSION['admin_success'] = 'Download removed successfully.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=downloads');
+        redirect('admin/index.php?page=downloads');
     }
 }

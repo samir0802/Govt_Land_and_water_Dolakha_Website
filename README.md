@@ -1,29 +1,29 @@
-# District Government Office Website (Dholakha) - PHP MVC + CMS
+# Nepal E-Government CMS (PHP MVC)
 
-A complete district-level government office portal inspired by Nepal government district websites, with a public website and admin CMS.
+Production-ready, reusable CMS for Nepal government office websites (public portal + admin dashboard) using PHP MVC, PDO, Bootstrap 5, and MySQL.
 
-## 1) Project Folder Structure
+## Folder Structure
 
 ```text
 /public
+  index.php
   /assets
     /css
     /js
     /images
       /uploads
-        /gallery
+        /gallery/{album_id}/images
         /downloads
-        /hero
+        /employees
+/admin
   index.php
 /app
   /controllers
   /models
   /views
-    /partials
     /pages
     /admin
-/admin
-  index.php
+    /partials
 /config
   config.php
   database.php
@@ -33,102 +33,66 @@ A complete district-level government office portal inspired by Nepal government 
   /logs
 ```
 
-## 2) Database Schema (MySQL)
+## Database Schema
 
-Import `database/schema.sql`.
+Tables included:
+- users
+- notices
+- downloads
+- services
+- employees
+- gallery_albums
+- gallery_items
+- publications
+- contact_messages
+- site_settings
 
-Core tables with `id`, `created_at`, `updated_at`:
-- `users`
-- `notices`
-- `downloads`
-- `services`
-- `employees`
-- `gallery`
-- `contact_messages`
+All tables include: `id`, `created_at`, `updated_at`.
 
-Additional table:
-- `publications` (for the Publications section)
+## Config + Helpers
 
-## 3) Backend Architecture (Structured MVC)
+- Base URL auto-detect and env fallback (`APP_URL`)
+- No hardcoded `/admin` or `/public` links in controllers/views
+- Global helpers:
+  - `url($path)`
+  - `redirect($path)`
+  - `asset($path)`
+  - `setting($key, $default)`
 
-- **Entry points:** `public/index.php` (public), `admin/index.php` (CMS)
-- **Controllers:** request handling and routing by `page` + `action`
-- **Models:** PDO prepared statements for SQL injection protection
-- **Views:** Bootstrap + PHP templates for modular rendering
-- **Config:** central settings in `config/config.php`
+## Routing
 
-### Security Implemented
-- Password hashing (`password_hash` / `password_verify`)
-- SQL injection protection via prepared statements
-- Session-based authentication for admin routes
-- Upload constraints configurable in `config/config.php` (`type`, `size`)
+- Public: `public/index.php?page=...`
+- Admin: `admin/index.php?page=...`
 
-## 4) Homepage HTML Sections
+## CMS Modules
 
-Implemented components:
-- Nepal government-style header
-- responsive navigation
-- hero slider
-- latest notices
-- office introduction
-- services overview
-- publications section
-- downloads section
-- gallery preview
-- contact info + footer links
+- Login/Auth (session + password hash verify)
+- Notices (full CRUD)
+- Downloads (upload PDF + delete)
+- Services (full CRUD)
+- Employees (create + delete with photo upload)
+- Gallery (albums + media upload)
+- Settings (persisted in `site_settings`)
 
-Main view file: `app/views/pages/home.php`
+## XAMPP Deployment
 
-## 5) Admin Dashboard (CMS)
-
-Admin modules:
-- Dashboard overview
-- Notices manager (full CRUD)
-- Downloads manager (scaffold)
-- Services manager (scaffold)
-- Employees manager (scaffold)
-- Gallery manager (scaffold)
-- Settings (scaffold)
-
-Login route: `/admin/index.php?page=login`
-
-## 6) CRUD Example (Notices)
-
-Implemented full CRUD:
-- List: `/admin/index.php?page=notices`
-- Create form: `?page=notices&action=create`
-- Store: POST `?page=notices&action=create`
-- Edit form: `?page=notices&action=edit&id={id}`
-- Update: POST `?page=notices&action=update&id={id}`
-- Delete: POST `?page=notices&action=delete&id={id}`
-
-Files:
-- `app/controllers/AdminNoticeController.php`
-- `app/models/Notice.php`
-- `app/views/admin/notices/index.php`
-- `app/views/admin/notices/form.php`
-
-## 7) Deployment Instructions (Shared Hosting Ready)
-
-1. Upload files to your hosting account.
-2. Set web root to `public/` (or move `public/*` into `public_html` and update paths).
-3. Create MySQL database and import `database/schema.sql`.
-4. Update DB credentials in `config/config.php` or set env vars (`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS`).
-5. Ensure these folders are writable if you extend uploads/logging:
-   - `public/assets/images/uploads`
-   - `storage/logs`
-6. Login to admin using seed account:
+1. Copy project into `htdocs/project-name`.
+2. Import `database/schema.sql` into MySQL.
+3. Configure env vars (optional): `APP_URL`, `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS`.
+4. Ensure writable upload paths:
+   - `public/assets/images/uploads/`
+5. Open:
+   - Public: `http://localhost/project-name/public/index.php`
+   - Admin: `http://localhost/project-name/admin/index.php?page=login`
+6. Seed admin:
    - username: `admin`
    - password: `Admin@123`
-7. Change admin password immediately after first login.
 
----
+## XAMPP Validation Checklist
 
-## Notes for Extension
-
-To complete all CRUD modules, copy the Notice pattern:
-1. Create a model with list/find/create/update/delete.
-2. Create admin controller methods.
-3. Add route handling in `admin/index.php`.
-4. Build admin view pages for table + form.
-5. Add file upload validation for downloads/gallery in controller methods.
+- Login works
+- Notice CRUD works
+- PDF/image upload works
+- Gallery album images render
+- Settings values reflect on frontend
+- No broken links via URL helpers

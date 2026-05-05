@@ -26,13 +26,13 @@ class AdminGalleryController extends BaseController
     {
         if (!$this->galleryModel->supportsAlbums()) {
             $_SESSION['admin_error'] = 'Gallery album tables are not available. Please run the latest database schema.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+            redirect('admin/index.php?page=gallery');
         }
 
         $titleNp = trim($_POST['title_np'] ?? '');
         if ($titleNp === '') {
             $_SESSION['admin_error'] = 'Album title is required.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+            redirect('admin/index.php?page=gallery');
         }
 
         $albumId = $this->galleryModel->createAlbum([
@@ -44,20 +44,20 @@ class AdminGalleryController extends BaseController
         $this->handleMediaUploads($albumId);
 
         $_SESSION['admin_success'] = 'Gallery album created successfully.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+        redirect('admin/index.php?page=gallery');
     }
 
     public function viewAlbum(int $id): void
     {
         if (!$this->galleryModel->supportsAlbums()) {
             $_SESSION['admin_error'] = 'Gallery album tables are not available. Please run the latest database schema.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+            redirect('admin/index.php?page=gallery');
         }
 
         $album = $this->galleryModel->getAlbum($id);
         if (!$album) {
             $_SESSION['admin_error'] = 'Album not found.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+            redirect('admin/index.php?page=gallery');
         }
 
         $this->view('admin/gallery/album', [
@@ -71,30 +71,30 @@ class AdminGalleryController extends BaseController
     {
         if (!$this->galleryModel->supportsAlbums()) {
             $_SESSION['admin_error'] = 'Gallery album tables are not available. Please run the latest database schema.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+            redirect('admin/index.php?page=gallery');
         }
 
         $album = $this->galleryModel->getAlbum($id);
         if (!$album) {
             $_SESSION['admin_error'] = 'Album not found.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+            redirect('admin/index.php?page=gallery');
         }
 
         $this->handleMediaUploads($id);
         $_SESSION['admin_success'] = 'Media uploaded to album.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery&action=view&id=' . $id);
+        redirect('admin/index.php?page=gallery&action=view&id=' . $id);
     }
 
     public function deleteAlbum(int $id): void
     {
         if (!$this->galleryModel->supportsAlbums()) {
             $_SESSION['admin_error'] = 'Gallery album tables are not available. Please run the latest database schema.';
-            redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+            redirect('admin/index.php?page=gallery');
         }
 
         $mediaItems = $this->galleryModel->albumMedia($id);
         foreach ($mediaItems as $item) {
-            $path = __DIR__ . '/../../public' . $item['media_path'];
+            $path = __DIR__ . '/../../public/assets/images/' . ltrim($item['image_path'], '/');
             if (is_file($path)) {
                 unlink($path);
             }
@@ -102,7 +102,7 @@ class AdminGalleryController extends BaseController
 
         $this->galleryModel->deleteAlbum($id);
         $_SESSION['admin_success'] = 'Album deleted.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=gallery');
+        redirect('admin/index.php?page=gallery');
     }
 
     private function handleMediaUploads(int $albumId): void
@@ -142,10 +142,10 @@ class AdminGalleryController extends BaseController
             $filename = date('YmdHis') . '-' . $i . '-' . bin2hex(random_bytes(3)) . '.' . $meta['ext'];
             move_uploaded_file($tmpNames[$i], $dir . '/' . $filename);
 
-            $this->galleryModel->addMedia([
+            $this->galleryModel->addItem([
                 'album_id' => $albumId,
                 'media_type' => $meta['type'],
-                'media_path' => '/assets/images/uploads/gallery/' . $albumId . '/' . $meta['folder'] . '/' . $filename,
+                'image_path' => 'uploads/gallery/' . $albumId . '/' . $meta['folder'] . '/' . $filename,
             ]);
         }
     }
