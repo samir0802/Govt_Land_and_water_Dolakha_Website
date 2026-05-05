@@ -58,19 +58,19 @@
         <h2 class="section-title"><?= lang() === 'en' ? 'Downloads' : 'डाउनलोड'; ?></h2>
         <div class="row g-3">
             <?php foreach ($downloads as $download): ?>
-                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= asset('images/' . ltrim($download['file_path'], '/')); ?>" target="_blank"><?= e(trField($download, 'title')); ?></a></div>
+                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= asset('images/' . ltrim($download['file_path'], '/')); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
             <?php endforeach; ?>
         </div>
     </section>
 
     <section class="container py-5" id="gallery">
-        <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="section-title mb-0"><?= lang() === 'en' ? 'Gallery Albums' : 'ग्यालरी फोल्डरहरू'; ?></h2><a href="<?= url('public/index.php?page=gallery'); ?>"><?= lang() === 'en' ? 'View all albums' : 'सबै फोल्डर हेर्नुहोस्'; ?></a></div>
+        <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="section-title mb-0">ग्यालरी फोल्डरहरू</h2><a href="<?= url('public/index.php?page=gallery'); ?>">सबै फोल्डर हेर्नुहोस्</a></div>
         <div class="row g-3">
             <?php foreach ($gallery as $album): ?>
                 <div class="col-6 col-md-4">
                     <a class="card h-100 text-decoration-none" href="<?= url('public/index.php?page=gallery&album=' . (int) $album['id']); ?>">
-                        <?php if (!empty($album['cover_image'])): ?><img src="<?= asset('images/' . ltrim($album['cover_image'], '/')); ?>" alt="<?= e(trField($album, 'title')); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
-                        <div class="mt-2"><?= e(trField($album, 'title')); ?></div>
+                        <?php if (!empty($album['cover_image'])): ?><img src="<?= asset('images/' . ltrim($album['cover_image'], '/')); ?>" alt="<?= e($album['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
+                        <div class="mt-2"><?= e($album['title_np']); ?></div>
                     </a>
                 </div>
             <?php endforeach; ?>
@@ -79,7 +79,7 @@
 
     <section class="bg-light py-5" id="contact">
         <div class="container">
-            <h2 class="section-title"><?= lang() === 'en' ? 'Contact' : 'सम्पर्क'; ?></h2>
+            <h2 class="section-title">सम्पर्क</h2>
             <p>ठेगाना: <?= e(setting('office_address', 'चरिकोट, दोलखा') ?? 'चरिकोट, दोलखा'); ?> | फोन: <?= e(setting('office_phone', '०४९-४२००००') ?? '०४९-४२००००'); ?> | इमेल: <?= e(setting('office_email', 'info@dolakhaoffice.gov.np') ?? 'info@dolakhaoffice.gov.np'); ?></p>
         </div>
     </section>
