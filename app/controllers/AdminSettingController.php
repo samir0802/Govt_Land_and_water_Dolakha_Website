@@ -42,6 +42,6 @@ class AdminSettingController extends BaseController
         }
 
         $_SESSION['admin_success'] = 'Settings saved successfully.';
-        redirect($this->config['app']['base_url'] . 'admin/index.php?page=settings');
+        redirect('admin/index.php?page=settings');
     }
 }

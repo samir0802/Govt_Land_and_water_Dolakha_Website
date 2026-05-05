@@ -6,9 +6,11 @@ require_once __DIR__ . '/../app/bootstrap.php';
 require_once __DIR__ . '/../app/controllers/AdminAuthController.php';
 require_once __DIR__ . '/../app/controllers/AdminNoticeController.php';
 require_once __DIR__ . '/../app/controllers/AdminDownloadController.php';
+require_once __DIR__ . '/../app/controllers/AdminServiceController.php';
 require_once __DIR__ . '/../app/controllers/AdminEmployeeController.php';
 require_once __DIR__ . '/../app/controllers/AdminGalleryController.php';
 require_once __DIR__ . '/../app/controllers/AdminSettingController.php';
+require_once __DIR__ . '/../app/controllers/AdminPublicationController.php';
 
 $page = $_GET['page'] ?? 'login';
 $action = $_GET['action'] ?? null;
@@ -17,12 +19,14 @@ $id = isset($_GET['id']) ? (int) $_GET['id'] : null;
 $authController = new AdminAuthController($config, $db->pdo());
 $noticeController = new AdminNoticeController($config, $db->pdo());
 $downloadController = new AdminDownloadController($config, $db->pdo());
+$serviceController = new AdminServiceController($config, $db->pdo());
 $employeeController = new AdminEmployeeController($config, $db->pdo());
 $galleryController = new AdminGalleryController($config, $db->pdo());
 $settingController = new AdminSettingController($config, $db->pdo());
+$publicationController = new AdminPublicationController($config, $db->pdo());
 
 if ($page !== 'login' && !isLoggedIn()) {
-    redirect($config['app']['base_url'] . 'admin/index.php?page=login');
+    redirect('admin/index.php?page=login');
 }
 
 if ($page === 'login') {
@@ -101,6 +105,17 @@ if ($page === 'downloads') {
     exit;
 }
 
+if ($page === 'publications') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'create') {
+        $publicationController->create();
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'delete' && $id) {
+        $publicationController->delete($id);
+    }
+    $publicationController->index();
+    exit;
+}
+
 if ($page === 'employees') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'create') {
         $employeeController->create();
@@ -141,8 +156,22 @@ if ($page === 'settings') {
 }
 
 if ($page === 'services') {
-    require __DIR__ . '/../app/views/admin/services/index.php';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'create') {
+        $serviceController->create();
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'update' && $id) {
+        $serviceController->update($id);
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === 'delete' && $id) {
+        $serviceController->delete($id);
+    }
+    if ($action === 'edit' && $id) {
+        $serviceController->editForm($id);
+        exit;
+    }
+
+    $serviceController->index();
     exit;
 }
 
-redirect($config['app']['base_url'] . 'admin/index.php?page=dashboard');
+redirect('admin/index.php?page=dashboard');
