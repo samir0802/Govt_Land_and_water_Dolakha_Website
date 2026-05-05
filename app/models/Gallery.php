@@ -92,7 +92,7 @@ class Gallery extends BaseModel
             return $stmt->fetchAll();
         }
 
-        $stmt = $this->db->prepare('SELECT id, id AS album_id, "image" AS media_type, image_path FROM gallery WHERE id = :id');
+        $stmt = $this->db->prepare('SELECT id, id AS album_id, "image" AS media_type, image_path AS image_path FROM gallery WHERE id = :id');
         $stmt->execute(['id' => $albumId]);
 
         return $stmt->fetchAll();

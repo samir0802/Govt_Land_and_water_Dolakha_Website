@@ -4,7 +4,6 @@
         <li class="nav-item"><a class="nav-link text-light" href="<?= url('admin/index.php?page=dashboard'); ?>">Dashboard</a></li>
         <li class="nav-item"><a class="nav-link text-light" href="<?= url('admin/index.php?page=notices'); ?>">Notices</a></li>
         <li class="nav-item"><a class="nav-link text-light" href="<?= url('admin/index.php?page=downloads'); ?>">Downloads</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="<?= url('admin/index.php?page=publications'); ?>">Publications</a></li>
         <li class="nav-item"><a class="nav-link text-light" href="<?= url('admin/index.php?page=services'); ?>">Services</a></li>
         <li class="nav-item"><a class="nav-link text-light" href="<?= url('admin/index.php?page=employees'); ?>">Employees</a></li>
         <li class="nav-item"><a class="nav-link text-light" href="<?= url('admin/index.php?page=gallery'); ?>">Gallery</a></li>
