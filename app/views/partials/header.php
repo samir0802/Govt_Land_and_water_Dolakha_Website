@@ -9,14 +9,12 @@
 </head>
 <body>
 <header class="gov-header py-3 border-bottom">
-    <div class="container d-flex align-items-center justify-content-between gap-3">
-        <div class="d-flex align-items-center gap-3">
-            <img src="<?= asset('images/nepal-emblem.svg'); ?>" alt="नेपाल सरकारको लोगो" class="emblem">
-            <div>
-                <p class="mb-0 fw-bold">नेपाल सरकार</p>
-                <p class="mb-0"><?= e(setting('site_name_np', $config['app']['name_np']) ?? $config['app']['name_np']); ?></p>
-                <p class="mb-0"><?= e(setting('office_address', 'सिंहदरबार, काठमाडौं') ?? 'सिंहदरबार, काठमाडौं'); ?></p>
-            </div>
+    <div class="container d-flex align-items-center gap-3">
+        <img src="<?= asset('images/nepal-emblem.svg'); ?>" alt="नेपाल सरकारको लोगो" class="emblem">
+        <div>
+            <p class="mb-0 fw-bold">नेपाल सरकार</p>
+            <p class="mb-0"><?= e(setting('site_name_np', $config['app']['name_np']) ?? $config['app']['name_np']); ?></p>
+            <p class="mb-0"><?= e(setting('office_address', 'सिंहदरबार, काठमाडौं') ?? 'सिंहदरबार, काठमाडौं'); ?></p>
         </div>
         <a class="btn btn-sm btn-outline-primary" href="<?= url('admin/index.php?page=login'); ?>">Admin Login</a>
     </div>
@@ -28,13 +26,13 @@
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php'); ?>">गृहपृष्ठ</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=introduction'); ?>">परिचय</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=services'); ?>">सेवा</a></li>
+                <li class="nav-item"><a class="nav-link" href="#introduction">परिचय</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">सेवा</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=notices'); ?>">सूचना</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=publications'); ?>">प्रकाशन</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=downloads'); ?>">डाउनलोड</a></li>
+                <li class="nav-item"><a class="nav-link" href="#publications">प्रकाशन</a></li>
+                <li class="nav-item"><a class="nav-link" href="#downloads">डाउनलोड</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=gallery'); ?>">ग्यालरी</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=contact'); ?>">सम्पर्क</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">सम्पर्क</a></li>
             </ul>
         </div>
     </div>
