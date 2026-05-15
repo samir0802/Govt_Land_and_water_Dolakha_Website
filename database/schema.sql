@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS dolakha_office CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE dolakha_office;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE notices (
+CREATE TABLE IF NOT EXISTS notices (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title_np VARCHAR(255) NOT NULL,
     title_en VARCHAR(255) DEFAULT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE notices (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE downloads (
+CREATE TABLE IF NOT EXISTS downloads (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title_np VARCHAR(255) NOT NULL,
     title_en VARCHAR(255) DEFAULT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE downloads (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE services (
+CREATE TABLE IF NOT EXISTS services (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title_np VARCHAR(255) NOT NULL,
     title_en VARCHAR(255) DEFAULT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE services (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE employees (
+CREATE TABLE IF NOT EXISTS employees (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name_np VARCHAR(150) NOT NULL,
     name_en VARCHAR(150) DEFAULT NULL,
@@ -58,27 +58,26 @@ CREATE TABLE employees (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE gallery (
+CREATE TABLE IF NOT EXISTS gallery_albums (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title_np VARCHAR(255) NOT NULL,
     title_en VARCHAR(255) DEFAULT NULL,
+    event_date DATE DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS gallery_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    album_id INT UNSIGNED NOT NULL,
+    media_type ENUM('image', 'video') NOT NULL DEFAULT 'image',
     image_path VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_gallery_items_album FOREIGN KEY (album_id) REFERENCES gallery_albums(id) ON DELETE CASCADE
 );
 
-CREATE TABLE contact_messages (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(150) NOT NULL,
-    email VARCHAR(150) DEFAULT NULL,
-    phone VARCHAR(50) DEFAULT NULL,
-    message TEXT NOT NULL,
-    status ENUM('new', 'read', 'resolved') DEFAULT 'new',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE publications (
+CREATE TABLE IF NOT EXISTS publications (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title_np VARCHAR(255) NOT NULL,
     title_en VARCHAR(255) DEFAULT NULL,
@@ -89,6 +88,33 @@ CREATE TABLE publications (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS contact_messages (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) DEFAULT NULL,
+    phone VARCHAR(50) DEFAULT NULL,
+    message TEXT NOT NULL,
+    status ENUM('new', 'read', 'resolved') DEFAULT 'new',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS site_settings (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    setting_key VARCHAR(190) NOT NULL UNIQUE,
+    setting_value TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 INSERT INTO users (username, password_hash, full_name, role)
-VALUES ('admin', '$2y$12$CjrVCqJpTE6p1Ek3iORinewsJzXS7WVZKm5ERAEcRlOR.MAqy60F2', 'System Administrator', 'admin');
--- Default password for seed user: Admin@123
+VALUES ('admin', '$2y$12$CjrVCqJpTE6p1Ek3iORinewsJzXS7WVZKm5ERAEcRlOR.MAqy60F2', 'System Administrator', 'admin')
+ON DUPLICATE KEY UPDATE full_name = VALUES(full_name), role = VALUES(role);
+
+INSERT INTO site_settings (setting_key, setting_value) VALUES
+('site_name_np', 'भू तथा जलाधार व्यवस्थापन कार्यालय, दोलखा'),
+('site_name_en', 'Soil and Watershed Management Office, Dolakha'),
+('office_address', 'चरिकोट, दोलखा'),
+('office_phone', '०१-४२०००००'),
+('office_email', 'info@example.gov.np')
+ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value);

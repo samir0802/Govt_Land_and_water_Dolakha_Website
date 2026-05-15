@@ -4,14 +4,14 @@
     <section class="hero-section">
         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active"><img src="<?= asset('images/uploads/hero/slide1.svg'); ?>" class="d-block w-100 hero-image" alt="कार्यालय भवन"></div>
-                <div class="carousel-item"><img src="<?= asset('images/uploads/hero/slide2.svg'); ?>" class="d-block w-100 hero-image" alt="सेवा प्रवाह"></div>
+                <div class="carousel-item active"><img src="<?= asset('images/uploads/hero/slide3.svg'); ?>" class="d-block w-100 hero-image" alt="कार्यालय भवन"></div>
+                <div class="carousel-item"><img src="<?= asset('images/uploads/hero/slide4.svg'); ?>" class="d-block w-100 hero-image" alt="सेवा प्रवाह"></div>
             </div>
         </div>
     </section>
 
     <section class="container py-5" id="notices">
-        <h2 class="section-title">ताजा सूचना</h2>
+        <h2 class="section-title">सूचना</h2>
         <div class="row g-3">
             <?php foreach ($latestNotices as $notice): ?>
                 <div class="col-md-6">
@@ -30,7 +30,22 @@
     <section class="bg-light py-5" id="introduction">
         <div class="container">
             <h2 class="section-title">कार्यालय परिचय</h2>
-            <p>खानेपानी, सिंचाइ तथा जलस्रोत कार्यालय, दोलखाले जिल्लाभर सुरक्षित खानेपानी, साना सिंचाइ आयोजना, र जलस्रोत व्यवस्थापन सम्बन्धी सेवा प्रदान गर्दछ।</p>
+            <p>खानेपानी, सिँचाइ तथा जलस्रोत कार्यालय, दोलखा बागमती प्रदेश सरकार, ऊर्जा, जलस्रोत तथा सिँचाइ मन्त्रालय अन्तर्गतको एक प्रमुख निकाय हो। यस कार्यालयले दोलखा जिल्लाभर सुरक्षित खानेपानीको पहुँच विस्तार, कृषि उत्पादन वृद्धिका लागि भरपर्दो सिँचाइ प्रणालीको विकास र जलस्रोतको दिगो व्यवस्थापनमा महत्वपूर्ण भूमिका खेल्दै आएको छ।
+
+दोलखा जिल्लाको भौगोलिक विशिष्टतालाई मध्यनजर गर्दै यस कार्यालयले साना तथा मझौला सिँचाइ आयोजनाहरू, खानेपानीका मुहान संरक्षण, र नदी नियन्त्रणका कार्यहरूलाई प्राथमिकताका साथ अगाडि बढाएको छ। स्थानीय जनसहभागिता र उपभोक्ता समितिहरूसँगको समन्वयमा आयोजनाहरू कार्यान्वयन गरी जिल्लाको सामाजिक तथा आर्थिक रूपान्तरणमा टेवा पुर्‍याउनु यस कार्यालयको मुख्य ध्येय रहेको छ।
+
+मुख्य उद्देश्यहरू:
+जिल्लाका प्रत्येक नागरिकलाई स्वच्छ र गुणस्तरीय खानेपानी सेवा उपलब्ध गराउन योजनाहरू तर्जुमा र कार्यान्वयन गर्ने।
+
+आधुनिक तथा दिगो सिँचाइ पूर्वाधारहरूको निर्माण गरी कृषि क्षेत्रको उत्पादकत्व वृद्धिमा सहयोग पुर्‍याउने।
+
+जलउत्पन्न प्रकोप (बाढी, पहिरो) नियन्त्रणका लागि तटबन्ध र अन्य संरक्षणका कार्यहरू सञ्चालन गर्ने।
+
+स्थानीय जलस्रोतको पहिचान, संरक्षण र बहुआयामिक उपयोगलाई प्रवर्द्धन गर्ने।
+
+सेवा प्रवाहमा पारदर्शिता, उत्तरदायित्व र सुशासन कायम गर्दै नागरिकलाई सहज प्राविधिक सेवा प्रदान गर्ने।
+
+हामी प्रविधिको उच्चतम प्रयोग र स्थानीय स्रोत-साधनको प्रभावकारी परिचालनमार्फत "समृद्ध बागमती प्रदेश" को लक्ष्य प्राप्तिका लागि निरन्तर क्रियाशील छौँ।</p>
         </div>
     </section>
 
@@ -58,16 +73,21 @@
         <h2 class="section-title">डाउनलोड</h2>
         <div class="row g-3">
             <?php foreach ($downloads as $download): ?>
-                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= e($download['file_path']); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
+                <div class="col-md-4"><a class="card card-body text-decoration-none" href="<?= asset('images/' . ltrim($download['file_path'], '/')); ?>" target="_blank"><?= e($download['title_np']); ?></a></div>
             <?php endforeach; ?>
         </div>
     </section>
 
     <section class="container py-5" id="gallery">
-        <h2 class="section-title">ग्यालरी</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="section-title mb-0">ग्यालरी फोल्डरहरू</h2><a href="<?= url('public/index.php?page=gallery'); ?>">सबै फोल्डर हेर्नुहोस्</a></div>
         <div class="row g-3">
-            <?php foreach ($gallery as $image): ?>
-                <div class="col-6 col-md-4"><img src="<?= e($image['image_path']); ?>" alt="<?= e($image['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"></div>
+            <?php foreach ($gallery as $album): ?>
+                <div class="col-6 col-md-4">
+                    <a class="card h-100 text-decoration-none" href="<?= url('public/index.php?page=gallery&album=' . (int) $album['id']); ?>">
+                        <?php if (!empty($album['cover_image'])): ?><img src="<?= asset('images/' . ltrim($album['cover_image'], '/')); ?>" alt="<?= e($album['title_np']); ?>" class="img-fluid rounded shadow-sm gallery-thumb"><?php endif; ?>
+                        <div class="mt-2"><?= e($album['title_np']); ?></div>
+                    </a>
+                </div>
             <?php endforeach; ?>
         </div>
     </section>
@@ -75,7 +95,7 @@
     <section class="bg-light py-5" id="contact">
         <div class="container">
             <h2 class="section-title">सम्पर्क</h2>
-            <p>ठेगाना: चरिकोट, दोलखा | फोन: ०४९-४२०००० | इमेल: info@dolakhaoffice.gov.np</p>
+            <p>ठेगाना: <?= e(setting('office_address', 'चरिकोट, दोलखा') ?? 'चरिकोट, दोलखा'); ?> | फोन: <?= e(setting('office_phone', '०४९-४२००००') ?? '०४९-४२००००'); ?> | इमेल: <?= e(setting('office_email', 'info@dolakhaoffice.gov.np') ?? 'info@dolakhaoffice.gov.np'); ?></p>
         </div>
     </section>
 </main>

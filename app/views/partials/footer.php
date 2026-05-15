@@ -1,3 +1,13 @@
+<style>
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    main {
+        flex: 1;
+    }
+</style>
 <footer class="bg-dark text-light py-4 mt-5">
     <div class="container">
         <div class="row g-3">
@@ -9,8 +19,9 @@
                 </ul>
             </div>
             <div class="col-md-6 text-md-end">
-                <p class="mb-1">© <?= date('Y'); ?> खानेपानी, सिंचाइ तथा जलस्रोत कार्यालय, दोलखा</p>
-                <p class="mb-0">Developed for district level e-governance</p>
+                <p class="mb-1">© <?= date('Y'); ?> भू तथा जलाधार व्यवस्थापन कार्यालय,दोलखा</p>
+                <p class="mb-0">Developed by Samir_Thapa</p>
+                <p class="mb-0">Admin Account: <a class="text-warning fw-semibold" href="<?= url('admin/index.php?page=login'); ?>">Admin Login</a></p>
             </div>
         </div>
     </div>

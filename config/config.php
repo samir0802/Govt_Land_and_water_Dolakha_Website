@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     'app' => [
-        'name_np' => 'नेपाल सरकार | खानेपानी, सिंचाइ तथा जलस्रोत कार्यालय, दोलखा',
+        'name_np' => 'भू तथा जलाधार व्यवस्थापन कार्यालय,दोलखा',
         'name_en' => 'Government of Nepal | Land and Water Resources Office, Dolakha',
         'base_url' => getenv('APP_URL') ?: rtrim(
             (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http')
