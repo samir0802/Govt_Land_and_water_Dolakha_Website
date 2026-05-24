@@ -4,6 +4,7 @@
     <?php $isEdit = !empty($notice); ?>
     <h1 class="h3 mb-3"><?= $isEdit ? 'Edit Notice' : 'Add Notice'; ?></h1>
     <form method="post" action="<?= url('admin/index.php?page=notices&action=' . ($isEdit ? 'update&id=' . (int) $notice['id'] : 'create')); ?>">
+        <?= csrf_input(); ?>
         <div class="row g-3">
             <div class="col-md-6"><label class="form-label">Title (Nepali)</label><input class="form-control" name="title_np" value="<?= e($notice['title_np'] ?? ''); ?>" required></div>
             <div class="col-md-6"><label class="form-label">Title (English)</label><input class="form-control" name="title_en" value="<?= e($notice['title_en'] ?? ''); ?>"></div>
