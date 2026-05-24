@@ -47,10 +47,7 @@ if ($page === 'login') {
 }
 
 if ($page === 'logout') {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        redirect('admin/index.php?page=dashboard');
-    }
-    if (!verify_csrf_token($_POST['_csrf_token'] ?? null)) {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !verify_csrf_token($_POST['_csrf_token'] ?? null)) {
         $_SESSION['admin_error'] = 'Invalid security token for logout.';
         redirect('admin/index.php?page=dashboard');
     }
