@@ -11,6 +11,7 @@
     <div class="card mb-4">
         <div class="card-body">
             <form method="POST" action="<?= url('admin/index.php?page=publications&action=create'); ?>" class="row g-3">
+                <?= csrf_input(); ?>
                 <div class="col-md-6"><input name="title_np" class="form-control" placeholder="Title (Nepali)" required></div>
                 <div class="col-md-6"><input name="title_en" class="form-control" placeholder="Title (English)"></div>
                 <div class="col-md-6"><textarea name="summary_np" class="form-control" rows="3" placeholder="Summary (Nepali)"></textarea></div>
@@ -30,6 +31,7 @@
                 <td><?= e(date('Y-m-d', strtotime($item['published_at']))); ?></td>
                 <td>
                     <form method="POST" action="<?= url('admin/index.php?page=publications&action=delete&id=' . (int) $item['id']); ?>" onsubmit="return confirm('Delete this publication?');">
+                        <?= csrf_input(); ?>
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
                 </td>

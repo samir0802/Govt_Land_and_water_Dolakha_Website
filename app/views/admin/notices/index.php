@@ -16,6 +16,7 @@
                     <td class="d-flex gap-2">
                         <a class="btn btn-sm btn-warning" href="<?= url('admin/index.php?page=notices&action=edit&id=' . (int) $notice['id']); ?>">Edit</a>
                         <form method="post" action="<?= url('admin/index.php?page=notices&action=delete&id=' . (int) $notice['id']); ?>" onsubmit="return confirm('Delete this notice?')">
+                            <?= csrf_input(); ?>
                             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                         </form>
                     </td>

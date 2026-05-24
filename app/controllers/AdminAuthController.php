@@ -27,18 +27,29 @@ class AdminAuthController extends BaseController
         $user = $this->userModel->findByUsername($username);
 
         if ($user && password_verify($password, $user['password_hash'])) {
+            session_regenerate_id(true);
             $_SESSION['user_id'] = (int) $user['id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['login_attempts'] = 0;
+            $_SESSION['login_locked_until'] = null;
             redirect('admin/index.php?page=dashboard');
         }
 
+        $_SESSION['login_attempts'] = (int) ($_SESSION['login_attempts'] ?? 0) + 1;
+        if ($_SESSION['login_attempts'] >= 5) {
+            $_SESSION['login_locked_until'] = time() + (10 * 60);
+        }
         $_SESSION['auth_error'] = 'Invalid credentials';
-        //redirect('/admin/index.php?page=login');
         redirect('admin/index.php?page=login');
     }
 
     public function logout(): void
     {
+        $_SESSION = [];
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], (bool) $params['secure'], (bool) $params['httponly']);
+        }
         session_destroy();
         redirect('admin/index.php?page=login');
     }
