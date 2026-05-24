@@ -2,11 +2,23 @@
 
 declare(strict_types=1);
 
+if (!function_exists('isHttpsRequest')) {
+    function isHttpsRequest(): bool
+    {
+        if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+            return true;
+        }
+
+        $forwardedProto = strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''));
+        return $forwardedProto === 'https';
+    }
+}
+
 session_set_cookie_params([
     'lifetime' => 0,
     'path' => '/',
     'domain' => '',
-    'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+    'secure' => isHttpsRequest(),
     'httponly' => true,
     'samesite' => 'Lax',
 ]);
@@ -77,6 +89,13 @@ if (!function_exists('verify_csrf_token')) {
         }
 
         return hash_equals((string) $_SESSION['csrf_token'], $token);
+    }
+}
+
+if (!function_exists('rotate_csrf_token')) {
+    function rotate_csrf_token(): void
+    {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 }
 

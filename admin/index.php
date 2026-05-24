@@ -56,7 +56,14 @@ if ($page === 'logout') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf_token($_POST['_csrf_token'] ?? null)) {
     $_SESSION['admin_error'] = 'Invalid security token. Please retry your action.';
-    redirect('admin/index.php?page=' . urlencode($page));
+    $redirectPath = 'admin/index.php?page=' . urlencode((string) $page);
+    if ($action !== null && $action !== '') {
+        $redirectPath .= '&action=' . urlencode((string) $action);
+    }
+    if ($id !== null) {
+        $redirectPath .= '&id=' . $id;
+    }
+    redirect($redirectPath);
 }
 
 if ($page === 'dashboard') {

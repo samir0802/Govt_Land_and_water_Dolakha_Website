@@ -28,6 +28,7 @@ class AdminAuthController extends BaseController
 
         if ($user && password_verify($password, $user['password_hash'])) {
             session_regenerate_id(true);
+            rotate_csrf_token();
             $_SESSION['user_id'] = (int) $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['login_attempts'] = 0;
@@ -51,6 +52,9 @@ class AdminAuthController extends BaseController
             setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], (bool) $params['secure'], (bool) $params['httponly']);
         }
         session_destroy();
+        session_start();
+        session_regenerate_id(true);
+        rotate_csrf_token();
         redirect('admin/index.php?page=login');
     }
 }
