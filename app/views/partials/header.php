@@ -33,6 +33,7 @@
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php'); ?>">गृहपृष्ठ</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=introduction'); ?>">परिचय</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=services'); ?>">सेवा</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=employees'); ?>">कर्मचारी</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=notices'); ?>">सूचना</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=publications'); ?>">प्रकाशन</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= url('public/index.php?page=downloads'); ?>">डाउनलोड</a></li>

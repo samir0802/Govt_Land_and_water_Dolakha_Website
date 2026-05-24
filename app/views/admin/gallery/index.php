@@ -3,6 +3,7 @@
 <main class="col-lg-10 p-4 bg-light">
     <h1 class="h3 mb-3">Gallery Manager</h1>
     <form method="POST" enctype="multipart/form-data" action="<?= url('admin/index.php?page=gallery&action=create'); ?>" class="row g-3 mb-4">
+        <?= csrf_input(); ?>
         <div class="col-md-4"><input name="title_np" required class="form-control" placeholder="Album title"></div>
         <div class="col-md-4"><input type="date" name="event_date" class="form-control"></div>
         <div class="col-md-4"><input type="file" name="media_files[]" multiple accept="image/png,image/jpeg,video/mp4,video/webm,video/quicktime" class="form-control"></div>

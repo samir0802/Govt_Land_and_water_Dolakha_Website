@@ -31,6 +31,15 @@ if ($page !== 'login' && !isLoggedIn()) {
 
 if ($page === 'login') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!verify_csrf_token($_POST['_csrf_token'] ?? null)) {
+            $_SESSION['auth_error'] = 'Invalid security token. Please try again.';
+            redirect('admin/index.php?page=login');
+        }
+        $lockedUntil = (int) ($_SESSION['login_locked_until'] ?? 0);
+        if ($lockedUntil > time()) {
+            $_SESSION['auth_error'] = 'Too many failed attempts. Try again later.';
+            redirect('admin/index.php?page=login');
+        }
         $authController->login();
     }
     $authController->loginForm();
@@ -38,7 +47,26 @@ if ($page === 'login') {
 }
 
 if ($page === 'logout') {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        redirect('admin/index.php?page=dashboard');
+    }
+    if (!verify_csrf_token($_POST['_csrf_token'] ?? null)) {
+        $_SESSION['admin_error'] = 'Invalid security token for logout.';
+        redirect('admin/index.php?page=dashboard');
+    }
     $authController->logout();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf_token($_POST['_csrf_token'] ?? null)) {
+    $_SESSION['admin_error'] = 'Invalid security token. Please retry your action.';
+    $redirectPath = 'admin/index.php?page=' . urlencode((string) $page);
+    if ($action !== null && $action !== '') {
+        $redirectPath .= '&action=' . urlencode((string) $action);
+    }
+    if ($id !== null) {
+        $redirectPath .= '&id=' . $id;
+    }
+    redirect($redirectPath);
 }
 
 if ($page === 'dashboard') {

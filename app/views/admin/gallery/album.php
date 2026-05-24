@@ -3,6 +3,7 @@
 <main class="col-lg-10 p-4 bg-light">
     <a class="btn btn-outline-secondary mb-3" href="<?= url('admin/index.php?page=gallery'); ?>">Back</a>
     <form method="POST" enctype="multipart/form-data" action="<?= url('admin/index.php?page=gallery&action=upload&id=' . (int) $album['id']); ?>" class="mb-4">
+        <?= csrf_input(); ?>
         <input type="file" name="media_files[]" multiple class="form-control mb-2">
         <button class="btn btn-primary">Upload</button>
     </form>

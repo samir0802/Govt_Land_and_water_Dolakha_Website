@@ -7,6 +7,7 @@ require_once __DIR__ . '/../models/Service.php';
 require_once __DIR__ . '/../models/Publication.php';
 require_once __DIR__ . '/../models/Download.php';
 require_once __DIR__ . '/../models/Gallery.php';
+require_once __DIR__ . '/../models/Employee.php';
 
 class HomeController extends BaseController
 {
@@ -62,6 +63,14 @@ class HomeController extends BaseController
         ]);
     }
 
+    public function employees(): void
+    {
+        $this->view('pages/employees', [
+            'config' => $this->config,
+            'employees' => (new Employee($this->db))->all(),
+        ]);
+    }
+
     private function commonData(): array
     {
         $noticeModel = new Notice($this->db);
@@ -69,6 +78,7 @@ class HomeController extends BaseController
         $publicationModel = new Publication($this->db);
         $downloadModel = new Download($this->db);
         $galleryModel = new Gallery($this->db);
+        $employeeModel = new Employee($this->db);
 
         return [
             'config' => $this->config,
@@ -77,6 +87,7 @@ class HomeController extends BaseController
             'publications' => $publicationModel->latest(6),
             'downloads' => $downloadModel->latest(6),
             'gallery' => $galleryModel->latest(6),
+            'employees' => $employeeModel->all(),
         ];
     }
 }

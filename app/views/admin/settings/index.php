@@ -9,6 +9,7 @@
         <div class="card-header">Admin controls</div>
         <div class="card-body">
             <form method="POST" action="<?= url('admin/index.php?page=settings&action=save'); ?>" class="row g-3">
+                <?= csrf_input(); ?>
                 <div class="col-md-6"><label class="form-label">Site Name (Nepali)</label><input name="site_name_np" value="<?= e($settings['site_name_np'] ?? $config['app']['name_np']); ?>" class="form-control"></div>
                 <div class="col-md-6"><label class="form-label">Site Name (English)</label><input name="site_name_en" value="<?= e($settings['site_name_en'] ?? $config['app']['name_en']); ?>" class="form-control"></div>
                 <div class="col-md-6"><label class="form-label">Office Address</label><input name="office_address" value="<?= e($settings['office_address'] ?? ''); ?>" class="form-control"></div>

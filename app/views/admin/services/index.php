@@ -8,6 +8,7 @@
                 <div class="card-body">
                     <h1 class="h5 mb-3"><?= $isEdit ? 'Edit Service' : 'Add Service'; ?></h1>
                     <form method="POST" action="<?= url('admin/index.php?page=services&action=' . ($isEdit ? 'update&id=' . (int) $editService['id'] : 'create')); ?>" class="row g-3">
+                        <?= csrf_input(); ?>
                         <div class="col-12"><label class="form-label">Title (Nepali)</label><input name="title_np" class="form-control" value="<?= e($editService['title_np'] ?? ''); ?>" required></div>
                         <div class="col-12"><label class="form-label">Title (English)</label><input name="title_en" class="form-control" value="<?= e($editService['title_en'] ?? ''); ?>"></div>
                         <div class="col-12"><label class="form-label">Description (Nepali)</label><textarea name="description_np" class="form-control" rows="3" required><?= e($editService['description_np'] ?? ''); ?></textarea></div>
@@ -36,6 +37,7 @@
                                     <td class="d-flex gap-2">
                                         <a class="btn btn-sm btn-warning" href="<?= url('admin/index.php?page=services&action=edit&id=' . (int) $service['id']); ?>">Edit</a>
                                         <form method="POST" action="<?= url('admin/index.php?page=services&action=delete&id=' . (int) $service['id']); ?>" onsubmit="return confirm('Delete this service?')">
+                                            <?= csrf_input(); ?>
                                             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
                                         </form>
                                     </td>

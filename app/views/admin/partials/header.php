@@ -9,4 +9,13 @@
 </head>
 <body>
 <div class="container-fluid">
+    <?php if (!empty($_SESSION['admin_error'])): ?>
+        <div class="alert alert-danger m-3 mb-0"><?= e($_SESSION['admin_error']); ?></div>
+        <?php unset($_SESSION['admin_error']); ?>
+    <?php endif; ?>
+
+    <?php if (!empty($_SESSION['admin_success'])): ?>
+        <div class="alert alert-success m-3 mb-0"><?= e($_SESSION['admin_success']); ?></div>
+        <?php unset($_SESSION['admin_success']); ?>
+    <?php endif; ?>
     <div class="row min-vh-100">
