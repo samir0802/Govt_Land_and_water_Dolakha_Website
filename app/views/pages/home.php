@@ -58,6 +58,30 @@
         </div>
     </section>
 
+    <section class="bg-light py-5" id="employees">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="section-title mb-0">कर्मचारी</h2>
+                <a href="<?= url('public/index.php?page=employees'); ?>">सबै कर्मचारी हेर्नुहोस्</a>
+            </div>
+            <div class="row g-3">
+                <?php foreach (array_slice($employees, 0, 6) as $employee): ?>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <article class="card h-100">
+                            <?php if (!empty($employee['photo_path'])): ?>
+                                <img src="<?= asset('images/' . ltrim($employee['photo_path'], '/')); ?>" alt="<?= e(trField($employee, 'name')); ?>" class="card-img-top employee-thumb">
+                            <?php endif; ?>
+                            <div class="card-body">
+                                <h3 class="h6 mb-1"><?= e(trField($employee, 'name')); ?></h3>
+                                <p class="mb-0 text-muted"><?= e(trField($employee, 'designation')); ?></p>
+                            </div>
+                        </article>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+
     <section class="bg-light py-5" id="publications">
         <div class="container">
             <h2 class="section-title">प्रकाशन</h2>

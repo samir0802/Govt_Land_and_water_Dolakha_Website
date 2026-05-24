@@ -32,6 +32,9 @@ switch ($page) {
     case 'contact':
         $homeController->contact();
         break;
+    case 'employees':
+        $homeController->employees();
+        break;
     case 'notices':
         (new NoticeController($config, $db->pdo()))->index();
         break;
@@ -44,4 +47,3 @@ switch ($page) {
         $homeController->index();
         break;
 }
-
