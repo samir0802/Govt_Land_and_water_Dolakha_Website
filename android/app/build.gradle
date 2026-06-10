@@ -1,0 +1,28 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace "com.example.blockpuzzle"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.example.blockpuzzle"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode flutter.versionCode
+        versionName flutter.versionName
+        multiDexEnabled true
+        manifestPlaceholders = [admobApplicationId: "ca-app-pub-3940256099942544~3347511713"]
+    }
+
+    buildTypes {
+        release { signingConfig signingConfigs.debug }
+    }
+}
+
+flutter { source '../..' }
+
+dependencies { implementation "androidx.multidex:multidex:2.0.1" }
