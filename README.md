@@ -1,98 +1,83 @@
-# Nepal E-Government CMS (PHP MVC)
+# Block Puzzle
 
-Production-ready, reusable CMS for Nepal government office websites (public portal + admin dashboard) using PHP MVC, PDO, Bootstrap 5, and MySQL.
+A production-ready Flutter block puzzle game scaffold built with Clean Architecture, BLoC/Cubit state management, `CustomPaint` rendering, rewarded ads, banner/interstitial ads, and RevenueCat in-app purchases.
 
-## Folder Structure
+## Features
 
-```text
-/public
-  index.php
-  /assets
-    /css
-    /js
-    /images
-      /uploads
-        /gallery/{album_id}/images
-        /downloads
-        /employees
-/admin
-  index.php
-/app
-  /controllers
-  /models
-  /views
-    /pages
-    /admin
-    /partials
-/config
-  config.php
-  database.php
-/database
-  schema.sql
-/storage
-  /logs
+- 8x8 block puzzle board rendered with `CustomPaint`.
+- Drag-and-drop block tray using Flutter `Draggable` and `DragTarget`.
+- Cubit-managed gameplay for move validation, scoring, row clearing, hints, score multipliers, revives, and game-over detection.
+- High-score and settings persistence through `shared_preferences`.
+- Google Mobile Ads test IDs for banner, interstitial, and rewarded ads.
+- RevenueCat wrappers for Remove Ads, Extra Life Pack, and Hint Pack purchases.
+- Light, dark, and system theme support.
+- Unit and widget tests for core business logic and launch flow.
+
+## Setup
+
+1. Install Flutter 3.22+ and platform toolchains.
+2. Install dependencies:
+
+   ```bash
+   flutter pub get
+   ```
+
+3. Configure Firebase:
+   - Create a Firebase project.
+   - Register Android app ID `com.example.blockpuzzle`.
+   - Register the iOS bundle ID you configure in Xcode.
+   - Download `google-services.json` into `android/app/`.
+   - Download `GoogleService-Info.plist` into `ios/Runner/`.
+
+4. Configure AdMob:
+   - Create an AdMob app.
+   - Create banner, interstitial, and rewarded ad units.
+   - Replace the test IDs in `lib/services/ad_service.dart` before release.
+   - Replace manifest and plist AdMob app IDs in `android/app/build.gradle` and `ios/Runner/Info.plist`.
+
+5. Configure RevenueCat:
+   - Create a RevenueCat project.
+   - Add entitlement `premium`.
+   - Create/link products:
+     - `remove_ads` non-consumable, $4.99 USD.
+     - `extra_life_pack` consumable, $0.99 USD.
+     - `hint_pack` consumable, $0.99 USD.
+   - Connect App Store Connect and Google Play Console.
+   - Provide public SDK keys at build time:
+
+   ```bash
+   flutter run --dart-define=REVENUECAT_ANDROID_KEY=your_android_key --dart-define=REVENUECAT_IOS_KEY=your_ios_key
+   ```
+
+## Running
+
+```bash
+flutter run
 ```
 
-## Database Schema
+## Testing
 
-Tables included:
-- users
-- notices
-- downloads
-- services
-- employees
-- gallery_albums
-- gallery_items
-- publications
-- contact_messages
-- site_settings
+```bash
+flutter test
+```
 
-All tables include: `id`, `created_at`, `updated_at`.
+## Android Build
 
-## Config + Helpers
+```bash
+flutter build apk --release --dart-define=REVENUECAT_ANDROID_KEY=your_android_key
+```
 
-- Base URL auto-detect and env fallback (`APP_URL`)
-- No hardcoded `/admin` or `/public` links in controllers/views
-- Global helpers:
-  - `url($path)`
-  - `redirect($path)`
-  - `asset($path)`
-  - `setting($key, $default)`
+## iOS Build
 
-## Routing
+```bash
+flutter build ios --release --dart-define=REVENUECAT_IOS_KEY=your_ios_key
+```
 
-- Public: `public/index.php?page=...`
-- Admin: `admin/index.php?page=...`
+## Release Checklist
 
-## CMS Modules
-
-- Login/Auth (session + password hash verify)
-- Notices (full CRUD)
-- Downloads (upload PDF + delete)
-- Services (full CRUD)
-- Employees (create + delete with photo upload)
-- Gallery (albums + media upload)
-- Settings (persisted in `site_settings`)
-
-## XAMPP Deployment
-
-1. Copy project into `htdocs/project-name`.
-2. Import `database/schema.sql` into MySQL.
-3. Configure env vars (optional): `APP_URL`, `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS`.
-4. Ensure writable upload paths:
-   - `public/assets/images/uploads/`
-5. Open:
-   - Public: `http://localhost/project-name/public/index.php`
-   - Admin: `http://localhost/project-name/admin/index.php?page=login`
-6. Seed admin:
-   - username: `admin`
-   - password: `Admin@123`
-
-## XAMPP Validation Checklist
-
-- Login works
-- Notice CRUD works
-- PDF/image upload works
-- Gallery album images render
-- Settings values reflect on frontend
-- No broken links via URL helpers
+- Replace all AdMob test IDs with production IDs.
+- Verify RevenueCat offerings and entitlement names.
+- Add Firebase config files.
+- Verify App Tracking Transparency copy and SKAdNetwork IDs.
+- Configure real Android signing keys and iOS signing profiles.
+- Run `flutter test` and platform release builds.
